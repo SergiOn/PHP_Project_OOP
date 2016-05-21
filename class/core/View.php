@@ -10,7 +10,7 @@ namespace core;
 
 
 class View {
-    public static function loadStaticPageAnd($pageInclude = false, $var = false, $var2 = false) {
+    public static function loadStaticPageAnd($pageInclude = false, $var = false, $var2 = false, $var3 = false) {
         include_once "templates/static/head.php";
         include_once "templates/static/menu.php";
 

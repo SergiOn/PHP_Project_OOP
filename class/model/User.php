@@ -12,11 +12,40 @@ namespace model;
 use core\Model;
 
 class User extends Model implements UserInterface, ProfInterface {
+    public function getAllUser() {
+        $idUser = $this->getUserId();
+        $allUser = $this->db->sendQuery("SELECT user_data.*, subscribes.idUser, subscribes.idAuthor 
+                                         FROM `user_data` LEFT JOIN `subscribes` 
+                                         ON user_data.id = subscribes.idAuthor
+                                         AND subscribes.idUser = $idUser
+                                         ORDER BY `user_data`.`id` ASC");
+        return $allUser;
+    }
+    public function subsAction($idUser, $status) {
+        $myId = $this->getUserId();
+        if ($status === "delete") {
+            $result = $this->db->delete("subscribes", ["idUser"=>$myId, "idAuthor"=>$idUser]);
+            return $result;
+        } elseif ($status === "insert") {
+            $result = $this->db->insert("subscribes", ["idUser"=>$myId, "idAuthor"=>$idUser]);
+            return $result;
+        }
+    }
     public function getCity() {
         $city = $this->db->select("city");
         return $city;
     }
-
+    public function addCity($city) {
+        if (!$city) return false;
+        $result = $this->db->select("city", false, ["name"=>$city]);
+        if (!empty($result)) return false;
+        $resultInsert = $this->db->insert("city", ["name"=>$city]);
+        if ($resultInsert) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function login($email = "", $pass = "", $check = false) {
         $user = $this->db->select("user_login", false, ["email" => $email, "pass" => md5($pass)])[0];
         if (!empty($user) && $check) {
@@ -88,8 +117,7 @@ class User extends Model implements UserInterface, ProfInterface {
     }
 
 
-    public function getLoginStatus()
-    {
+    public function getLoginStatus() {
         // TODO: Implement getLoginStatus() method.
     }
 //    public static function getTrueUser()

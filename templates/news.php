@@ -7,7 +7,9 @@ foreach ($var as $value) {
 
     <?php
     if ($value["image"]) {
-        echo '<img src="'.SITE.$value["image"].'" alt="img'.$value["id"].'">';
+    ?>
+        <img src="<?=SITE.$value["image"]?>" alt="img<?=$value["id"]?>">
+    <?php
     }
     ?>
     <p>
@@ -16,12 +18,15 @@ foreach ($var as $value) {
     <footer><?= $value["createDate"] ?>
         <cite title="Source Title">
             <?= $value["name"]." ".$value["l_name"] ?>
+            <div><img src="<?=SITE.$value["avatar"]?>" alt=""></div>
         </cite>
 
         <?php
-        if ($value['idUser'] === $idUser) {
-            echo '<br><a href="news.php?articleId='.$value["id"].'">Delete Article</a>';
-            echo '<br><a href="addNews.php?articleId='.$value["id"].'">Modify the Text</a>';
+        if ($value['idUser'] === $var2) {
+        ?>
+            <br><a href="news.php?articleId=<?=$value["id"]?>" class="delete-articles">Delete Article</a>
+            <br><a href="addNews.php?articleId=<?=$value["id"]?>" class="modify-articles">Modify the Text</a>
+        <?php
         }
         ?>
 

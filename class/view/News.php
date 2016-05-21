@@ -10,16 +10,10 @@ namespace view;
 
 
 class News {
-    public function getAll($news) {
-        \core\View::loadStaticPageAnd("templates/news.php", $news);
-    }
-    public function getMy($news) {
-        \core\View::loadStaticPageAnd("templates/news.php", $news);
+    public function showNews($news, $id) {
+        \core\View::loadStaticPageAnd("templates/news.php", $news, $id);
     }
     public function addNews() {
         \core\View::loadStaticPageAnd("templates/addNews.php");
-    }
-    public function showSubscribe($news) {
-        \core\View::loadStaticPageAnd("templates/news.php", $news);
     }
 }

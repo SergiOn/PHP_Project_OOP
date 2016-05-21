@@ -15,5 +15,20 @@ class Model {
     public function __construct() {
         $this->db = new \core\DB();
     }
+    
+    public function getUserId() {
+        if (isset($_COOKIE['auth'])) {
+            $email = $_COOKIE['auth'];
+            $userId = $this->db->select("user_login", ["id"], ["email"=>$email])[0]["id"];
+            return $userId;
+        }
+        session_start();
+        if (isset($_SESSION['auth'])) {
+            $email = $_SESSION['auth'];
+            $userId = $this->db->select("user_login", ["id"], ["email"=>$email])[0]["id"];
+            return $userId;
+        }
+        return false;
+    }
 
 }

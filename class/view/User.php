@@ -10,8 +10,8 @@ namespace view;
 
 
 class User {
-    public function allUsers() {
-        \core\View::loadStaticPageAnd("templates/allUsers.php");
+    public function allUsers($allUser, $id) {
+        \core\View::loadStaticPageAnd("templates/allUsers.php", $allUser, $id);
     }
     public function addCity() {
         \core\View::loadStaticPageAnd("templates/addCity.php");

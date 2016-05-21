@@ -61,18 +61,21 @@ class DB implements IDB {
         }
     }
 
-    public function sendQuery($sql, $arrValue = false) {
+    public function sendQuery($sql, $arrValue = []) {
         $query = $this->db->prepare($sql);
-        $result = $query->execute($arrValue);
-        if (is_bool($result) || $result === 1) {
-            return $result;
-        } else {
-            $array = $query->fetchAll(PDO::FETCH_ASSOC);
-            return $array;
-        }
+        $query->execute($arrValue);
+        $array = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $array;
+//        if (is_bool($result) || $result === 1) {
+//            return $result;
+//        } else {
+//            $array = $query->fetchAll(PDO::FETCH_ASSOC);
+//            return $array;
+//        }
     }
 
-    public function select($table, $what = false, $where = false, $orderColumn = false, $desc = false, $limit = false) {
+    public function select($table, $what = false, $where = false, $orderColumn = false, $desc = false, $limit = false)
+    {
         $arrValue = [];
         if ($what) {
             $whatSQL = implode(", ", $what);

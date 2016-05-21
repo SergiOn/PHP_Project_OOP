@@ -13,16 +13,19 @@ class Main {
     public function startPage() {
         \core\View::loadStaticPageAnd("templates/main.php");
     }
-    public function pageNotFound() {
-        \core\View::loadStaticPageAnd("templates/pageNotFound.php");
-    }
     public function welcome() {
         \core\View::loadStaticPageAnd("templates/welcome.php");
     }
+    public function pageNotFound() {
+        \core\View::loadStaticPageAnd("templates/result/pageNotFound.php");
+    }
     public function problem($someText) {
-        \core\View::loadStaticPageAnd("templates/problem.php", $someText);
+        \core\View::loadStaticPageAnd("templates/result/problem.php", $someText);
     }
     public function bye($someText) {
-        \core\View::loadStaticPageAnd("templates/bye.php", $someText);
+        \core\View::loadStaticPageAnd("templates/result/bye.php", $someText);
+    }
+    public function good($someText) {
+        \core\View::loadStaticPageAnd("templates/result/good.php", $someText);
     }
 }

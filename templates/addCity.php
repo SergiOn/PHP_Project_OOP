@@ -1,4 +1,4 @@
-	<form action="<?=SITE?>user/authAction.php" method="post">
+	<form action="<?=SITE?>user/addCityAction" method="post">
 	  <div class="form-group">
 		<label for="city">City</label>
 		<input name="city" type="text" class="form-control" id="city" placeholder="City">

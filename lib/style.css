@@ -13,10 +13,10 @@ blockquote:after {
 blockquote h4 {
     margin-top: 0;
 }
-blockquote img {
+blockquote > img {
     float: left;
     width: 55%;
-    padding: 0px 20px 15px 0;
+    padding: 0 20px 15px 0;
 }
 blockquote footer a {
     line-height: 2;
@@ -31,7 +31,7 @@ blockquote footer cite {
     background-color: transparent;
     color: #9D9D9D;
     outline: none;
-    border: 0px solid #9D9D9D;
+    border: 0;
 }
 .navbar-collapse form button[type="submit"]:hover {
     background-color: #080808;
@@ -110,56 +110,28 @@ form:not(.quit) {
     width: 500px;
     margin: 0 auto 70px;
 }
-.navbar-collapse .user {
-    position: relative;
-    float: right;
-    margin: 0 80px 0 0;
-    padding: 0;
-}
-.navbar-collapse .user img {
-    height: 50px;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #3c3c3c;
-    border-radius: 5px;
-}
-.navbar-collapse .user .user-info {
-    display: none;
-}
-.navbar-collapse .user:hover .user-info {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    display: block;
-    width: 200px;
-    height: 130px;
-    color: #fff;
-    border: 1px solid #3c3c3c;
-    border-top-color: #222;
-    background-color: #222;
-}
-.user-info ul {
-    padding: 0;
-}
-.user-info ul li {
-    margin: 0;
-    list-style-type: none;
-    color: #fff;
-    text-align: center;
-}
-.user-info ul li:first-child,
-.user-info ul li:hover:first-child {
-    font-size: 1.1em;
-    padding: 15px 10px;
-    background-color: #222;
-}
-.user-info ul li a {
-    display: block;
-    padding: 15px 10px;
-}
 .not-found {
     margin-top: 50px;
     text-align: center;
 }
-
-
+blockquote .modify-articles:hover {
+    color: #2b669a;
+    text-decoration: underline;
+}
+blockquote .delete-articles:hover {
+    color: #b10000;
+    text-decoration: underline;
+}
+blockquote cite div {
+    display: inline-block;
+    height: 30px;
+    margin-left: 10px;
+    overflow: hidden;
+    border-radius: 5px;
+    text-align: right;
+    vertical-align: middle;
+}
+blockquote cite div img {
+    height: inherit;
+    width: auto;
+}

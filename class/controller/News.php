@@ -20,19 +20,26 @@ class News extends Controller {
         $this->getAll();
     }
     public function getAll() {
+        $id = $this->model->getUserId();
         $allNews = $this->model->getAll();
-        $this->view->getAll($allNews);
+        $this->view->showNews($allNews, $id);
     }
     public function getMy() {
+        $id = $this->model->getUserId();
         $myNews = $this->model->getMy();
-        $this->view->getMy($myNews);
+        $this->view->showNews($myNews, $id);
     }
     public function addNews() {
         $this->view->addNews();
     }
     public function subscribe() {
+        $id = $this->model->getUserId();
         $subscribe = $this->model->subscribe();
-        $this->view->showSubscribe($subscribe);
+        $this->view->showNews($subscribe, $id);
+    }
+
+    public function newsAction() {
+        print_r($_POST);
     }
 
     public function apiGetAll() {

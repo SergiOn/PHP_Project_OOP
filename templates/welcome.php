@@ -14,8 +14,7 @@
     </div>
     <div class="col-sm-9">
         <div class="row">
-            <a href="<?=SITE?>news/addNews" class="col-sm-5 welcome-block">Add News</a>
-            <a href="<?=SITE?>" class="col-sm-5 col-sm-offset-2 welcome-block">My Profile</a>
+            <a href="<?=SITE?>news/addNews" class="col-sm-6 col-sm-offset-3 welcome-block">Add News</a>
         </div>
     </div>
 </div>

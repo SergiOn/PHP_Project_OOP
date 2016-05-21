@@ -25,7 +25,9 @@ class User extends Controller {
         $this->allUsers();
     }
     public function allUsers() {
-        $this->view->allUsers();
+        $allUser = $this->model->getAllUser();
+        $id = $this->model->getUserId();
+        $this->view->allUsers($allUser, $id);
     }
     public function addCity() {
         $this->view->addCity();
@@ -38,6 +40,15 @@ class User extends Controller {
         $this->view->registrationUser($city);
     }
 
+    public function addCityAction() {
+        header("refresh: 3, url = ".SITE."user/addCity");
+        $result = $this->model->addCity($_POST['city']);
+        if ($result) {
+            $this->viewMain->good("The city added to the database");
+        } else {
+            $this->viewMain->problem("The city has not been added to the database");
+        }
+    }
     public function authAction() {
         $this->model->logout();
         $enabledCookie = $_POST['check'] ? true : false;
@@ -102,7 +113,8 @@ class User extends Controller {
             $this->viewMain->problem("Registration complete. But user does not exist");
         }
     }
-
-
-    
+    public function subsAction() {
+        $this->model->subsAction($_GET['id'], $_GET['status']);
+        header("Location: ".SITE."user");
+    }
 }

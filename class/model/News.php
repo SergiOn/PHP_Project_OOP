@@ -13,17 +13,24 @@ use core\Model;
 
 class News extends Model{
     public function getAll() {
-        $allNews = $this->db->select("articles");
+        $allNews = $this->db->sendQuery("SELECT articles.*, user_data.name, user_data.l_name, user_data.avatar 
+                                         FROM `articles` LEFT JOIN `user_data` ON articles.idUser = user_data.id
+                                         ORDER BY `articles`.`id` ASC");
         return $allNews;
     }
     public function getMy() {
-        $user = "1";
-        $myNews = $this->db->select("articles", false, ["idUser"=>$user]);
+        $id = $this->getUserId();
+        $myNews = $this->db->sendQuery("SELECT articles.*, user_data.name, user_data.l_name, user_data.avatar 
+                                        FROM `articles` LEFT JOIN `user_data` ON articles.idUser = user_data.id
+                                        WHERE articles.idUser = $id
+                                        ORDER BY `articles`.`id` ASC");
         return $myNews;
     }
     public function subscribe() {
-        $author = "1";
-        $subscribe = $this->db->select("articles", false, ["idUser"=>$author]);
+        $id = $this->getUserId();
+        $subscribe = $this->db->sendQuery("SELECT articles.*, user_data.name, user_data.l_name, user_data.avatar 
+                                           FROM `articles` LEFT JOIN `user_data` ON articles.idUser = user_data.id
+                                           WHERE `idUser` IN (SELECT `idAuthor` FROM `subscribes` WHERE `idUser` = $id)");
         return $subscribe;
     }
 }
