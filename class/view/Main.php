@@ -22,8 +22,8 @@ class Main {
     public function problem($someText) {
         \core\View::loadStaticPageAnd("templates/result/problem.php", $someText);
     }
-    public function bye($someText) {
-        \core\View::loadStaticPageAnd("templates/result/bye.php", $someText);
+    public function bye() {
+        \core\View::loadStaticPageAnd("templates/result/bye.php");
     }
     public function good($someText) {
         \core\View::loadStaticPageAnd("templates/result/good.php", $someText);

@@ -45,19 +45,24 @@ blockquote footer cite {
     background-color: #080808;
     color: #fff;
 }
-.row .col-sm-6.col-md-4 .thumbnail img {
+.thumbnail img {
     width: inherit;
 }
-.row .col-sm-6.col-md-4 .thumbnail .img {
+.thumbnail .img {
     float: left;
     width: 80px;
     height: 60px;
+    margin-top: 10px;
     margin-right: 10px;
     border-radius: 20px;
     overflow: hidden;
 }
-.row .col-sm-6.col-md-4 .thumbnail .caption p a {
-    margin-left: 80px;
+.caption h3 {
+    margin-top: 0;
+}
+.caption a {
+    background-color: transparent;
+    transition: background-color .2s, color .2s;
 }
 
 a,
@@ -135,3 +140,11 @@ blockquote cite div img {
     height: inherit;
     width: auto;
 }
+#savepic {
+    font-weight: normal;
+}
+
+#comment form {
+    margin: 0;
+}
+

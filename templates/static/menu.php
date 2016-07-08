@@ -4,10 +4,6 @@
             <a class="navbar-brand" href="<?=SITE?>">Newsbook</a>
         </div>
         <div class="collapse navbar-collapse">
-            
-<?php
-//    if (checkAuth()) {
-?>
             <ul class="nav navbar-nav">
                 <li><a href="<?=SITE?>main/welcome">Home</a></li>
                 <li><a href="<?=SITE?>news">News</a></li>
@@ -20,18 +16,6 @@
             <form class="quit" action="<?=SITE?>user/quitAction" method="post">
                 <button type="submit">Quit</button>
             </form>
-
-<?php
-//    } else {
-?>
-<!--            <ul class="nav navbar-nav">-->
-<!--                <li><a href="login.php">Login</a></li>-->
-<!--                <li><a href="registration.php">Registration</a></li>-->
-<!--            </ul>-->
-<?php
-//    }
-?>
-   
         </div><!--/.nav-collapse -->
     </div>
 </div>

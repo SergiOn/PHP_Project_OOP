@@ -74,16 +74,12 @@ class DB implements IDB {
 //        }
     }
 
-    public function select($table, $what = false, $where = false, $orderColumn = false, $desc = false, $limit = false)
-    {
+    public function select($table, $what = false, $where = false, $orderColumn = false, $desc = false, $limit = false) {
         $arrValue = [];
         if ($what) {
             $whatSQL = implode(", ", $what);
         } else {
             $whatSQL = "*";
-            if ($desc === "DESC" && !$orderColumn) {
-                $orderColumnSQL = "ORDER BY id DESC";
-            }
         }
         if ($where) {
             $whereSQL = "WHERE";
@@ -93,16 +89,26 @@ class DB implements IDB {
                 $and = " AND";
                 $arrValue[] = $value;
             }
+        } else {
+            $whereSQL = "";
         }
         if ($orderColumn) {
             $orderColumnSQL = "ORDER BY $orderColumn";
             if ($desc === "DESC") {
                 $orderColumnSQL .= " DESC";
+            } else {
+                $orderColumnSQL .= " ASC";
             }
+        } elseif ($desc === "DESC" && !$orderColumn) {
+            $orderColumnSQL = "ORDER BY id DESC";
+        } else {
+            $orderColumnSQL = "";
         }
         if ($limit && count($limit) === 2) {
             $limitSQL = "LIMIT ";
             $limitSQL .= implode(", ", $limit);
+        } else {
+            $limitSQL = "";
         }
         $sql = "SELECT $whatSQL FROM `$table` $whereSQL $orderColumnSQL $limitSQL";
         $query = $this->db->prepare($sql);

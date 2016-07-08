@@ -5,6 +5,6 @@
             <small>come back later</small>
         </h2>
         <hr>
-        <h3><?=$var?></h3>
+        <h3>You have successfully exited</h3>
     </div>
 </div>

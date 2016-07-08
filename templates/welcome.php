@@ -9,7 +9,7 @@
     <div class="col-sm-9">
         <div class="row">
             <a href="<?=SITE?>news/subscribe" class="col-sm-5 welcome-block">Subscribe</a>
-            <a href="<?=SITE?>user" class="col-sm-5 col-sm-offset-2 welcome-block">User</a>
+            <a href="<?=SITE?>user" class="col-sm-5 col-sm-offset-2 welcome-block">Users</a>
         </div>
     </div>
     <div class="col-sm-9">

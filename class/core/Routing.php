@@ -14,12 +14,6 @@ class Routing {
         $pathArr = explode("/", $path);
         $pathArrSITE = explode("/", SITE);
 
-//        print_r($pathArr);
-//        echo "<br>";
-//        print_r($pathArrSITE);
-//        echo "<br>";
-//        print_r($_GET);
-
         $classNum = count($pathArrSITE) - 1;
         $methodNum = count($pathArrSITE);
         $className = false;

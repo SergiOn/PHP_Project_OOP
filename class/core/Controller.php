@@ -12,12 +12,6 @@ namespace core;
 abstract class Controller {
     public $model;
     public $view;
-
-    public function __construct (){
-        if (User::getTrueUser()) {
-
-        }
-    }
-
+    
     abstract function index();
 }

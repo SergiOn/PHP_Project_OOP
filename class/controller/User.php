@@ -22,14 +22,17 @@ class User extends Controller {
     }
 
     public function index() {
+        User::getTrueUser();
         $this->allUsers();
     }
     public function allUsers() {
+        User::getTrueUser();
         $allUser = $this->model->getAllUser();
         $id = $this->model->getUserId();
         $this->view->allUsers($allUser, $id);
     }
     public function addCity() {
+        User::getTrueUser();
         $this->view->addCity();
     }
     public function loginUser() {
@@ -51,7 +54,7 @@ class User extends Controller {
     }
     public function authAction() {
         $this->model->logout();
-        $enabledCookie = $_POST['check'] ? true : false;
+        $enabledCookie = isset($_POST['check']) ? true : false;
         $result = $this->model->login($_POST['email'], $_POST['pass'], $enabledCookie);
         if ($result) {
             header("Location: ".SITE."main/welcome");
@@ -63,10 +66,10 @@ class User extends Controller {
     public function quitAction() {
         $result =  $this->model->logout();
         if ($result) {
-            header("refresh: 5, url = ".SITE);
-            $this->viewMain->bye("You have successfully exited");
+            header("refresh: 2, url = ".SITE);
+            $this->viewMain->bye();
         } else {
-            header("refresh: 5, url = ".SITE);
+            header("refresh: 2, url = ".SITE);
             $this->viewMain->problem("Any problems with exited");
         }
     }
@@ -116,5 +119,18 @@ class User extends Controller {
     public function subsAction() {
         $this->model->subsAction($_GET['id'], $_GET['status']);
         header("Location: ".SITE."user");
+    }
+    public static function getTrueUser() {
+        $model = new \model\User();
+        $viewMain = new \view\Main();
+
+        $getLoginStatus = $model->getLoginStatus();
+        $getTrueUser = $model->getTrueUser();
+        if ($getLoginStatus && $getTrueUser) return true;
+        if (!$getLoginStatus && !$getTrueUser) {
+            header("refresh: 5, url = ".SITE);
+            $viewMain->problem("You are not Authorized");
+            die();
+        }
     }
 }

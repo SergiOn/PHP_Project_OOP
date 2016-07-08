@@ -6,9 +6,7 @@
  * Time: 23:35
  */
 
-//session_start();
-//echo "Session<br>";
-//print_r($_SESSION);
+error_reporting(-1);
 
 require_once("config.php");
 

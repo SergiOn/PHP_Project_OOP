@@ -53,7 +53,7 @@ class User extends Model implements UserInterface, ProfInterface {
             setcookie("token", md5("security_key".$email), time()+60*60*24, "/");
             return true;
         } elseif (!empty($user)) {
-            session_start();
+            if (session_status() == PHP_SESSION_NONE) session_start();
             $_SESSION['auth'] = $email;
             $_SESSION['token'] = md5("security_key".$email);
             return true;
@@ -62,21 +62,17 @@ class User extends Model implements UserInterface, ProfInterface {
         }
     }
     public function logout() {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) session_start();
         if (isset($_SESSION['auth']) || isset($_SESSION['token'])) {
+            unset($_SESSION['auth']);
+            unset($_SESSION['token']);
             session_destroy();
-            return true;
         }
         if (isset($_COOKIE['auth']) || isset($_COOKIE['token'])) {
             setcookie("auth", "", time()-1, "/");
             setcookie("token", "", time()-1, "/");
-            return true;
         }
-        if (empty($_SESSION) && empty($_COOKIE)) {
-            return true;
-        } else {
-            return false;
-        }
+        return true;
     }
     public function registrUser($email = "", $pass = "", $name = "", $surname = "", $phone = "", $birthdate = "", $city = "", $avatar = "") {
         $id = $this->db->insert("user_login", ["email"=>$email,"pass"=>md5($pass)]);
@@ -116,30 +112,36 @@ class User extends Model implements UserInterface, ProfInterface {
         }
     }
 
-
     public function getLoginStatus() {
-        // TODO: Implement getLoginStatus() method.
-    }
-//    public static function getTrueUser()
-//    {
-//        // TODO: Implement getTrueUser() method.
-//    }
-    public static function getTrueUser() {
-        $email = $_COOKIE['auth'];
-        $token = md5("security_key".$email);
-        if ($_COOKIE['token'] === $token) {
-            return true;
-        } else {
-            return false;
+        if (isset($_COOKIE['auth'])) {
+            $user = $this->getUserExist($_COOKIE['auth']);
+            if ($user) return true;
         }
+        if (session_status() == PHP_SESSION_NONE) session_start();
+        if (isset($_SESSION['auth'])) {
+            $user = $this->getUserExist($_SESSION['auth']);
+            if ($user) return true;
+        }
+        return false;
     }
-//    public function getLoginStatus() {
-//        if ($_COOKIE['auth'] && $_COOKIE['token']) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    public function getTrueUser() {
+        if (isset($_COOKIE['auth']) && isset($_COOKIE['token'])) {
+            $email = $_COOKIE['auth'];
+            $token = md5("security_key".$email);
+            if ($_COOKIE['token'] === $token) {
+                return true;
+            }
+        }
+        if (session_status() == PHP_SESSION_NONE) session_start();
+        if (isset($_SESSION['auth']) && isset($_SESSION['token'])) {
+            $email = $_SESSION['auth'];
+            $token = md5("security_key".$email);
+            if ($_SESSION['token'] === $token) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 
@@ -181,5 +183,5 @@ interface ProfInterface {
      */
     public function getUserExist($email = "");
 
-    public static function getTrueUser();
+    public function getTrueUser();
 }
