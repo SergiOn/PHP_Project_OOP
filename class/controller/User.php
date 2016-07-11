@@ -120,13 +120,14 @@ class User extends Controller {
         $this->model->subsAction($_GET['id'], $_GET['status']);
         header("Location: ".SITE."user");
     }
-    public static function getTrueUser() {
+    public static function getTrueUser($refresh = true) {
         $model = new \model\User();
         $viewMain = new \view\Main();
 
         $getLoginStatus = $model->getLoginStatus();
         $getTrueUser = $model->getTrueUser();
         if ($getLoginStatus && $getTrueUser) return true;
+        if (!$refresh) return false;
         if (!$getLoginStatus && !$getTrueUser) {
             header("refresh: 5, url = ".SITE);
             $viewMain->problem("You are not Authorized");

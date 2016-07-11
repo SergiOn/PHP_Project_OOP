@@ -17,8 +17,11 @@ class Main extends Controller {
     }
 
     public function index() {
-        if (User::getTrueUser()) header("Location: ".SITE."main/welcome");
-        $this->startPage();
+        if (User::getTrueUser(false)) {
+            header("Location: " . SITE . "main/welcome");
+        } else {
+            $this->startPage();
+        }
     }
     
     public function startPage() {
